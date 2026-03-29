@@ -1,0 +1,127 @@
+# restic exclude patterns for macOS home directory backup
+# Used with: restic backup ~ --exclude-file=~/.restic-laptop-backup-excludes
+#
+# Review this file and adjust for your setup — you probably have different
+# apps installed. Run these to find large directories you might want to exclude:
+#   du -sh ~/Library/Application\ Support/* | sort -rh | head -20
+#   du -sh ~/.* | sort -rh | head -20
+#
+# Pattern syntax:
+#   foo           - matches any path component named "foo" at any depth
+#   /Users/you/x  - matches exactly that absolute path (use your own username)
+#   **/*.ext      - matches any file with that extension at any depth
+
+# ===========================================================================
+# iCloud-synced content (already in the cloud — no need to back up twice)
+# ===========================================================================
+# Uncomment and adjust the username in these lines if you use iCloud:
+# /Users/YOURUSERNAME/Library/Mobile Documents
+# /Users/YOURUSERNAME/Library/Photos
+# /Users/YOURUSERNAME/Pictures/Photos Library.photoslibrary
+# /Users/YOURUSERNAME/Pictures/Photo Booth Library
+
+# ===========================================================================
+# Caches and regenerable data
+# ===========================================================================
+.cache
+.Trash
+**/__pycache__
+**/GPUCache
+**/DawnGraphiteCache
+**/DawnWebGPUCache
+**/CrashReporter
+
+# macOS system caches (per-user)
+# Uncomment and set your username:
+# /Users/YOURUSERNAME/Library/Caches
+# /Users/YOURUSERNAME/Library/Logs
+# /Users/YOURUSERNAME/Library/Saved Application State
+# /Users/YOURUSERNAME/Library/Cookies
+# /Users/YOURUSERNAME/Library/Metadata/CoreSpotlight
+
+# ===========================================================================
+# Build artifacts and dependencies (regenerable — exclude everywhere)
+# ===========================================================================
+**/node_modules
+**/.venv
+**/venv
+**/.terraform
+**/.build
+**/DerivedData
+**/.gradle
+**/target
+
+# ===========================================================================
+# Language toolchains and package managers (reinstallable via brew/installers)
+# ===========================================================================
+# Uncomment and set your username:
+# /Users/YOURUSERNAME/.npm
+# /Users/YOURUSERNAME/.nvm
+# /Users/YOURUSERNAME/.pyenv
+# /Users/YOURUSERNAME/.rustup
+# /Users/YOURUSERNAME/.cargo
+# /Users/YOURUSERNAME/.local/share/uv
+
+# ===========================================================================
+# Large app data (redownloadable — add/remove apps to match your setup)
+# ===========================================================================
+# Uncomment, set your username, and adjust to your installed apps:
+# /Users/YOURUSERNAME/Library/Application Support/Slack
+# /Users/YOURUSERNAME/Library/Application Support/Spotify
+# /Users/YOURUSERNAME/Library/Application Support/Firefox
+# /Users/YOURUSERNAME/Library/Application Support/Google
+# /Users/YOURUSERNAME/Library/Application Support/Adobe
+# /Users/YOURUSERNAME/Library/Application Support/zoom.us
+# /Users/YOURUSERNAME/Library/Application Support/Signal
+# /Users/YOURUSERNAME/Library/Application Support/Code
+
+# ===========================================================================
+# IDE/editor state (synced via accounts, regenerable)
+# ===========================================================================
+# Uncomment and set your username:
+# /Users/YOURUSERNAME/.vscode
+# /Users/YOURUSERNAME/.cursor
+
+# ===========================================================================
+# LLM model stores (huge, redownloadable)
+# ===========================================================================
+# /Users/YOURUSERNAME/.ollama
+# /Users/YOURUSERNAME/.lmstudio
+
+# ===========================================================================
+# iOS device backups (large — iCloud handles this)
+# ===========================================================================
+# /Users/YOURUSERNAME/Library/Application Support/MobileSync
+
+# ===========================================================================
+# Docker build caches
+# ===========================================================================
+# /Users/YOURUSERNAME/.docker/buildx
+# /Users/YOURUSERNAME/.docker/desktop-build
+
+# ===========================================================================
+# General exclusions
+# ===========================================================================
+# /Users/YOURUSERNAME/Downloads
+# /Users/YOURUSERNAME/Applications
+**/*.iso
+**/*.dmg
+
+# ===========================================================================
+# macOS TCC-protected directories (sandboxed, unreadable without special
+# permissions, and generally not useful to back up — they cause restic
+# exit code 3 warnings)
+# ===========================================================================
+# /Users/YOURUSERNAME/Library/Containers
+# /Users/YOURUSERNAME/Library/Group Containers
+# /Users/YOURUSERNAME/Library/Messages
+# /Users/YOURUSERNAME/Library/Mail
+# /Users/YOURUSERNAME/Library/Safari
+# /Users/YOURUSERNAME/Library/Accounts
+# /Users/YOURUSERNAME/Library/HomeKit
+# /Users/YOURUSERNAME/Library/Shortcuts
+# /Users/YOURUSERNAME/Library/Suggestions
+# /Users/YOURUSERNAME/Library/IdentityServices
+# /Users/YOURUSERNAME/Library/Application Support/AddressBook
+# /Users/YOURUSERNAME/Library/Application Support/CallHistoryDB
+# /Users/YOURUSERNAME/Library/Application Support/com.apple.TCC
